@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: dummy_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3307:3306"  # host:container (optional for accessing MySQL from host)
+    volumes:
+      - ./DB/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+  app:
+    build: .
+    container_name: dummy_app
+    depends_on:
+      - db
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./.streamlit:/app/.streamlit  # mount secrets
+    environment:
+      DB_HOST: ${DB_HOST}       # env vars override secrets
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}

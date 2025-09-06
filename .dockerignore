@@ -1,0 +1,10 @@
+echo "venv
+.env
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.streamlit/secrets.toml
+.git
+.gitignore
+.DS_Store" > .dockerignore
