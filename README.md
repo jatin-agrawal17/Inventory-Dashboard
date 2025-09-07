@@ -59,7 +59,12 @@ git clone https://github.com/jatin-agrawal17/Inventory-Dashboard.git
 ```bash
 cd Inventory-Dashboard
 ```
-3. **Build and run the application**
+3. **Pull the Docker Image**
+```bash
+docker pull jatinag12/python-driven-ui:latest
+```
+
+4. **Build and run the application**
 ```bash
 docker-compose up --build
 ```
