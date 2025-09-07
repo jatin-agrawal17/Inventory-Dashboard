@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
     ports:
-      - "3307:3306"  # host:container (optional for accessing MySQL from host)
+      - "3307:3306"  
     volumes:
       - ./DB/dump.sql:/docker-entrypoint-initdb.d/dump.sql
 
@@ -21,9 +21,9 @@ services:
     ports:
       - "8501:8501"
     volumes:
-      - ./.streamlit:/app/.streamlit  # mount secrets
+      - ./.streamlit:/app/.streamlit  
     environment:
-      DB_HOST: ${DB_HOST}       # env vars override secrets
+      DB_HOST: ${DB_HOST}       
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}

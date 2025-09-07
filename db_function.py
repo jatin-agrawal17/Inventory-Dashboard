@@ -4,14 +4,12 @@ from dotenv import load_dotenv
 import streamlit as st
 import time
 load_dotenv()
-# load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 @st.cache_resource
 def connect_to_db(retries=5, delay=3):
     """
     Connect to MySQL database. Works locally (secrets.toml) and inside Docker (.env).
     """
-    # Docker-aware: prefer env vars first, then secrets
     host = os.getenv("DB_HOST") or st.secrets.get("mysql", {}).get("host", "localhost")
     user = os.getenv("DB_USER") or st.secrets.get("mysql", {}).get("user", "root")
     password = os.getenv("DB_PASSWORD") or st.secrets.get("mysql", {}).get("password", "")
@@ -27,14 +25,14 @@ def connect_to_db(retries=5, delay=3):
                 database=database,
                 port=port
             )
-            st.success(f"✅ Database connected! Host: {host}, Port: {port}")
+            st.success(f"Database connected! Host: {host}, Port: {port}")
             return conn
         except mysql.connector.Error as e:
-            st.warning(f"Attempt {attempt}/{retries} ❌ Connection failed: {e}")
+            st.warning(f"Attempt {attempt}/{retries} Connection failed: {e}")
             if attempt < retries:
                 time.sleep(delay)
             else:
-                st.error("❌ All attempts failed. Check credentials and Docker setup.")
+                st.error("All attempts failed. Check credentials and Docker setup.")
                 return None
 
 

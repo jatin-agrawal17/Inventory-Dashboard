@@ -28,7 +28,6 @@ if options == "📌 Basic Information":
     basic_info = get_basic_info(cursor)
     keys = list(basic_info.keys())
 
-    # Show metrics in two rows
     col = st.columns(3)
     for i in range(3):
         col[i].metric(label=keys[i], value=basic_info[keys[i]])
@@ -43,7 +42,7 @@ if options == "📌 Basic Information":
     for labels, data in tables.items():
         with st.expander(f"📑 {labels}"):
             df = pd.DataFrame(data)
-            st.dataframe(df, width="stretch")  # ✅ updated
+            st.dataframe(df, width="stretch")
 
 # ------------------ Operational Tasks ------------------ #
 elif options == "⚙️ Operational Tasks":
@@ -83,7 +82,7 @@ elif options == "⚙️ Operational Tasks":
                     try:
                         add_new_mannual_id(cursor, db, product_name, product_category,
                                            product_price, product_stock, product_level, supplier_id)
-                        st.success(f"🎉 Product {product_name} added successfully")
+                        st.success(f"Product {product_name} added successfully")
                     except Exception as e:
                         st.error(f"⚠️ Error in adding the product: {e}")
 
@@ -104,7 +103,7 @@ elif options == "⚙️ Operational Tasks":
             if history_data:
                 with st.expander("📊 View Full History"):
                     df = pd.DataFrame(history_data)
-                    st.dataframe(df, width="stretch")  # ✅ updated
+                    st.dataframe(df, width="stretch") 
             else:
                 st.info("ℹ️ No history found for the selected product.")
 
